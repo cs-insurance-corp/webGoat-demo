@@ -15,6 +15,7 @@ spec:
 ''') {
     node(POD_LABEL) {
         container('maven') {
+            git checkout
             sh 'mvn clean install'
         }
         junit '**/target/surefire-reports/TEST-*.xml'
