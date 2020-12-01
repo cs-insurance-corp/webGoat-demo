@@ -136,7 +136,18 @@
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <revision>v8.2.0-SNAPSHOT</revision>
     </properties>
-
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <name>Nexus Releases</name>
+      <url>http://34.74.233.234:8081/repository/maven-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <name>Nexus Snapshot</name>
+      <url>http://34.74.233.234:8081/repository/maven-snapshots</url>
+    </snapshotRepository>
+ </distributionManagement>
     <modules>
         <module>webgoat-container</module>
         <module>webgoat-lessons</module>
@@ -272,7 +283,7 @@
     <repositories>
         <repository>
             <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <url>http://34.74.233.234:8081/repository/maven-central</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -281,7 +292,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <url>http://34.74.233.234:8081/repository/maven-central</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
