@@ -1,4 +1,8 @@
 pipeline {
+  options { 
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+    skipDefaultCheckout true
+  }
   agent {
     kubernetes {
       label 'mvn-pod'
@@ -19,10 +23,16 @@ spec:
       - mountPath: "/usr/share/maven/ref"
         name: settings-xml
         readOnly: true
+      - mountPath: "/root/.m2"
+        name: mvn-pv-storage
   volumes:
     - name: settings-xml
       secret:
         secretName: settings-xml
+    - name: mvn-pv-claim
+      persistentVolumeClaim:
+        claimName: mvn-pv-claim
+
 """
     }
   }
@@ -31,6 +41,7 @@ spec:
       steps {
      container('maven') {
         //sleep time: 10, unit: 'MINUTES'
+        checkout scm
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
