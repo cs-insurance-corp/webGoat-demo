@@ -1,12 +1,17 @@
+#!/usr/bin/env groovy
 pipeline {
+  agent none
   options { 
     buildDiscarder(logRotator(numToKeepStr: '5'))
     skipDefaultCheckout true
   }
-  agent {
-    kubernetes {
-      label 'mvn-pod'
-      yaml """
+
+  stages {
+    stage('Maven') {
+      agent {
+        kubernetes {
+          label 'mvn-pod'
+          yaml """
 apiVersion: v1
 kind: Pod
 metadata:
@@ -36,9 +41,7 @@ spec:
 """
     }
   }
-  stages {
-    stage('Maven') {
-      steps {
+    steps {
      container('maven') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
