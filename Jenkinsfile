@@ -46,6 +46,8 @@ spec:
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
       }
+        junit '**/target/surefire-reports/TEST-*.xml'
+
       }
     }
   }
