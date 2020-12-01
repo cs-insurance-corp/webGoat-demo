@@ -30,9 +30,9 @@ spec:
     stage('Maven') {
       steps {
      container('maven') {
-        sleep time: 10, unit: 'MINUTES'
+        //sleep time: 10, unit: 'MINUTES'
         sh '''
-        mvn clean install 
+        mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
       }
       }
