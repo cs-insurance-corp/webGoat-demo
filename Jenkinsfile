@@ -22,10 +22,12 @@ spec:
     stage('Maven') {
       steps {
      container('maven') {
-        sh """
-        mvn clean install
-        """
+       withCredentials([file(credentialsId: 'settings-xml', variable: 'settings-xml')]) {
+        sh '''
+        mvn clean install -s ${settings-xml}
+        '''
         }
+      }
       }
     }
   }
