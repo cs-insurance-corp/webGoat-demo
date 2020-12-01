@@ -24,7 +24,7 @@ spec:
         name: settings-xml
         readOnly: true
       - mountPath: "/root/.m2"
-        name: mvn-pv-storage
+        name: mvn-pv-claim
   volumes:
     - name: settings-xml
       secret:
