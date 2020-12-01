@@ -30,6 +30,7 @@ spec:
     stage('Maven') {
       steps {
      container('maven') {
+        sleep time: 10, unit: 'MINUTES'
         sh '''
         mvn clean install 
         '''
