@@ -15,6 +15,14 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+      - mountPath: "/usr/share/maven/ref"
+        name: settings-xml
+        readOnly: true
+  volumes:
+    - name: settings-xml
+      secret:
+        secretName: settings-xml
 """
     }
   }
@@ -22,11 +30,9 @@ spec:
     stage('Maven') {
       steps {
      container('maven') {
-       withCredentials([file(credentialsId: 'settings-xml', variable: 'settings-xml')]) {
         sh '''
-        mvn clean install -s ${settings-xml}
+        mvn clean install 
         '''
-        }
       }
       }
     }
