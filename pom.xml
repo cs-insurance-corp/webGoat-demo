@@ -295,8 +295,6 @@
                             <skipStaging>true</skipStaging>
                         </configuration> -->
                     </plugin>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
