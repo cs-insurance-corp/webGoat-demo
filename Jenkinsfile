@@ -27,7 +27,7 @@ pipeline {
 
       }
     }
-    stage('Deploy WebGoat') {
+    stage('Push WebGoat to Snapshot Repository') {
       // when { 
       //   branch 'main'
       //   beforeAgent true
@@ -44,6 +44,24 @@ pipeline {
         '''
       }
       }
-    }  
+    }
+    stage('Release WebGoat') {
+      when { 
+        // branch 'release-*'
+        beforeAgent true
+      }
+      agent {
+        label 'mvn-pod'
+      }
+    steps {
+     container('maven') {
+        //sleep time: 10, unit: 'MINUTES'
+        checkout scm
+        sh '''
+        mvn clean deploy scm:tag -Dmaven.test.skip=true -s /usr/share/maven/ref/settings.xml
+        '''
+      }
+      }
+    }   
   }
 }
