@@ -51,14 +51,14 @@ pipeline {
       //   beforeAgent true
       // }
       agent {
-        label 'mvn-pod'
+        label 'hub-cli'
       }
     steps {
-     container('maven') {
+     container('hub') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
         sh '''
-        mvn deploy scm:tag -Drevision=8.2.0 -s /usr/share/maven/ref/settings.xml
+        hub --version
         '''
       }
       }
