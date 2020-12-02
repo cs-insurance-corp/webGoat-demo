@@ -27,7 +27,7 @@ pipeline {
 
     //   }
     // }
-    // stage('Push WebGoat to Snapshot Repository') {
+    // stage('Push Snapshot to Nexus') {
     //   // when { 
     //   //   branch 'main'
     //   //   beforeAgent true
@@ -45,11 +45,11 @@ pipeline {
     //   }
     //   }
     // }
-    stage('Release WebGoat') {
-      // when { 
-      //   // branch 'release-*'
-      //   beforeAgent true
-      // }
+   stage('Pushing Release to Nexus') {
+      when { 
+        branch 'release-*'
+        beforeAgent true
+      }
       agent {
         label 'hub-cli'
       }
@@ -57,11 +57,26 @@ pipeline {
      container('hub') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
-        // sh '''
-        // hub release create -m "Release 🚀 v8.2.0" 8.2.0
-        // '''
         sh '''
-        echo "${BRANCH_NAME#*-}" ${BRANCH_NAME#*-}
+        hub release create -m "Release 🚀 v${BRANCH_NAME#*-}" ${BRANCH_NAME#*-}
+        '''
+      }
+      }
+    }   
+    stage('Release WebGoat') {
+      when { 
+        branch 'release-*'
+        beforeAgent true
+      }
+      agent {
+        label 'hub-cli'
+      }
+    steps {
+     container('hub') {
+        //sleep time: 10, unit: 'MINUTES'
+        checkout scm
+        sh '''
+        hub release create -m "Release 🚀 v${BRANCH_NAME#*-}" ${BRANCH_NAME#*-}
         '''
       }
       }
