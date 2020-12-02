@@ -1,5 +1,10 @@
 # WebGoat release notes 
 
+## Version 8.2.0
+
+- Feature 1
+
+
 ## Version 8.1.0
 
 ### New functionality
