@@ -58,7 +58,7 @@ pipeline {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
         sh '''
-        hub --version
+        hub release create -m "Release 8.2.0" 8.2.0
         '''
       }
       }
