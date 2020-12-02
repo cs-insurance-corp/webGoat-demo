@@ -57,8 +57,11 @@ pipeline {
      container('hub') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
+        // sh '''
+        // hub release create -m "Release 🚀 v8.2.0" 8.2.0
+        // '''
         sh '''
-        hub release create -m "Release 8.2.0" 8.2.0
+        echo ${BRANCH_NAME}
         '''
       }
       }
