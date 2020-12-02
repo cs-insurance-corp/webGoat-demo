@@ -46,10 +46,10 @@ pipeline {
       }
     }
     stage('Release WebGoat') {
-      when { 
-        // branch 'release-*'
-        beforeAgent true
-      }
+      // when { 
+      //   // branch 'release-*'
+      //   beforeAgent true
+      // }
       agent {
         label 'mvn-pod'
       }
