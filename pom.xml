@@ -95,10 +95,11 @@
     </mailingLists>
 
     <scm>
-        <url>https://github.com/WebGoat/WebGoat</url>
-        <connection>scm:git:git@github.com:WebGoat/WebGoat.git</connection>
-        <developerConnection>scm:git:git@github.com:WebGoat/WebGoat.git</developerConnection>
-        <tag>HEAD</tag>
+        <url>https://github.com/cs-insurance-corp/webGoat-demo</url>
+        <connection>scm:git:https://github.com/cs-insurance-corp/webGoat-demo.git</connection>
+        <!-- <connection>scm:git:git@github.com:WebGoat/WebGoat.git</connection> -->
+        <developerConnection>scm:git:git@github.com:cs-insurance-corp/webGoat-demo.git</developerConnection>
+        <tag>@{project.version}</tag>
     </scm>
 
     <issueManagement>
@@ -294,11 +295,6 @@
                             <skipStaging>true</skipStaging>
                         </configuration> -->
                     </plugin>
-                    <plugin>
-                        <artifactId>maven-scm-plugin</artifactId>
-                        <version>1.11.2</version>
-                        <configuration>
-                            <tag>${project.artifactId}-${project.version}</tag>
                         </configuration>
                     </plugin>
                 </plugins>
