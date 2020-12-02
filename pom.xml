@@ -135,7 +135,7 @@
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-        <revision>v8.2.0-SNAPSHOT</revision>
+        <revision>v8.2.1-SNAPSHOT</revision>
     </properties>
     <distributionManagement>
         <repository>
