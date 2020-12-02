@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.owasp.webgoat</groupId>
@@ -136,32 +136,32 @@
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <revision>v8.2.0-SNAPSHOT</revision>
     </properties>
-  <distributionManagement>
-    <repository>
-      <id>nexus</id>
-      <name>Nexus Releases</name>
-      <url>http://34.74.233.234:8081/repository/maven-releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>nexus</id>
-      <name>Nexus Snapshot</name>
-      <url>http://34.74.233.234:8081/repository/maven-snapshots</url>
-    </snapshotRepository>
- </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Releases</name>
+            <url>http://34.74.233.234:8081/repository/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot</name>
+            <url>http://34.74.233.234:8081/repository/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <modules>
         <module>webgoat-container</module>
         <module>webgoat-lessons</module>
         <module>webgoat-server</module>
         <module>webwolf</module>
         <module>webgoat-integration-tests</module>
-		<module>docker</module><!-- copy required jars in preparation of docker all-in-one build -->
+        <module>docker</module>        <!-- copy required jars in preparation of docker all-in-one build -->
     </modules>
 
     <dependencies>
-	    <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -179,47 +179,17 @@
         </dependency>
     </dependencies>
 
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<configuration>
-				<source>11</source>
-				<target>11</target>
-				<encoding>UTF-8</encoding>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-checkstyle-plugin</artifactId>
-			<version>3.1.0</version>
-			<configuration>
-				<encoding>UTF-8</encoding>
-				<consoleOutput>true</consoleOutput>
-				<failsOnError>true</failsOnError>
-				<configLocation>config/checkstyle/checkstyle.xml</configLocation>
-				<suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
-				<suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-			</configuration>
-		</plugin>
-	</plugins>
-</build>
-
-<profiles>
-	<profile>
-		<id>defaultProfile</id>
-		<activation>
-			<activeByDefault>true</activeByDefault>
-		</activation>		
-	</profile>
-	<profile>
-		<id>owasp</id>
-		<activation>
-			<activeByDefault>false</activeByDefault>
-		</activation>
-		    <build>
+    <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -233,52 +203,101 @@
                     <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                 </configuration>
             </plugin>
-            <plugin>
-      				<groupId>org.apache.maven.plugins</groupId>
-      				<artifactId>maven-pmd-plugin</artifactId>
-      				<version>3.13.0</version>
-      				<configuration>
-      					<targetJdk>11</targetJdk>
-      					<failurePriority>1</failurePriority><!-- 5 means fail even on the lowest
-      						priority, 0 means never fail -->
-      					<rulesets>
-      						<ruleset>${maven.multiModuleProjectDirectory}/pmd-ruleset.xml</ruleset>
-      					</rulesets>
-      					<failOnViolation>true</failOnViolation>
-      					<printFailingErrors>true</printFailingErrors>
-      				</configuration>
-      				<executions>
-      					<execution>
-      						<goals>
-      							<goal>check</goal>
-      						</goals>
-      					</execution>
-      				</executions>
-      			</plugin>
-      			<plugin>
-      				<groupId>org.owasp</groupId>
-      				<artifactId>dependency-check-maven</artifactId>
-      				<version>5.3.2</version>
-      				<configuration>
-      					<failBuildOnCVSS>7</failBuildOnCVSS>
-      					<skipProvidedScope>true</skipProvidedScope>
-                          <skipRuntimeScope>true</skipRuntimeScope>
-      					<suppressionFiles>
-                              <suppressionFile>project-suppression.xml</suppressionFile>
-                          </suppressionFiles>
-      				</configuration>
-      				<executions>
-      					<execution>
-      						<goals>
-      							<goal>check</goal>
-      						</goals>
-      					</execution>
-      				</executions>
-      			</plugin>
         </plugins>
     </build>
-	</profile>
-</profiles>
+
+    <profiles>
+        <profile>
+            <id>defaultProfile</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>owasp</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                            <configLocation>config/checkstyle/checkstyle.xml</configLocation>
+                            <suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
+                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>3.13.0</version>
+                        <configuration>
+                            <targetJdk>11</targetJdk>
+                            <failurePriority>1</failurePriority>                            <!-- 5 means fail even on the lowest
+      						priority, 0 means never fail -->
+                            <rulesets>
+                                <ruleset>${maven.multiModuleProjectDirectory}/pmd-ruleset.xml</ruleset>
+                            </rulesets>
+                            <failOnViolation>true</failOnViolation>
+                            <printFailingErrors>true</printFailingErrors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <version>5.3.2</version>
+                        <configuration>
+                            <failBuildOnCVSS>7</failBuildOnCVSS>
+                            <skipProvidedScope>true</skipProvidedScope>
+                            <skipRuntimeScope>true</skipRuntimeScope>
+                            <suppressionFiles>
+                                <suppressionFile>project-suppression.xml</suppressionFile>
+                            </suppressionFiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <!-- <configuration>
+                            <serverId>snapshots</serverId>
+                            <nexusUrl>http://34.74.233.234:8081/repository/maven-snapshots/</nexusUrl>
+                            <skipStaging>true</skipStaging>
+                        </configuration> -->
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>

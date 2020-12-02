@@ -8,9 +8,13 @@ pipeline {
 
   stages {
     stage('Maven Build WebGoat') {
+      // when { 
+      //   branch 'main'
+      //   beforeAgent true
+      // }
       agent {
         label 'mvn-pod'
-    }
+      }
     steps {
      container('maven') {
         //sleep time: 10, unit: 'MINUTES'
@@ -23,5 +27,23 @@ pipeline {
 
       }
     }
+    stage('Deploy WebGoat') {
+      // when { 
+      //   branch 'main'
+      //   beforeAgent true
+      // }
+      agent {
+        label 'mvn-pod'
+      }
+    steps {
+     container('maven') {
+        //sleep time: 10, unit: 'MINUTES'
+        checkout scm
+        sh '''
+        mvn clean deploy -Dmaven.test.skip=true -s /usr/share/maven/ref/settings.xml
+        '''
+      }
+      }
+    }  
   }
 }
