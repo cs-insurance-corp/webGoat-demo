@@ -61,7 +61,7 @@ pipeline {
         // hub release create -m "Release 🚀 v8.2.0" 8.2.0
         // '''
         sh '''
-        echo ${BRANCH_NAME}
+        echo ${BRANCH_NAME#*.}
         '''
       }
       }
