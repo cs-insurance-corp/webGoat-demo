@@ -29,7 +29,9 @@ pipeline {
     }
     stage('Push Snapshot to Nexus') {
       when { 
-        branch 'main'
+       not {
+           branch 'release-*'
+       }
         beforeAgent true
       }
       agent {
