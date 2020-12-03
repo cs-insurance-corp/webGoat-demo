@@ -7,6 +7,8 @@ spec:
   containers:
   - image: "sonatype/nexus-iq-server:1.103.0"
     name: "iq-cli"
+    args:
+    - "cat"
     command:
-    - cat
-    tty: true
+    - "/bin/sh"
+    - "-c"
