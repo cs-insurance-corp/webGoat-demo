@@ -23,7 +23,10 @@ pipeline {
      container('maven') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
-        stash includes: 'webgoat-server/target/*.jar', name: 'webgoat-server-jars'
+        sh '''
+        mvn clean install -s /usr/share/maven/ref/settings.xml
+        '''
+        stash includes: 'webgoat-server/target/*SNAPSHOT.jar', name: 'webgoat-server-jars'
 
       }
         junit '**/target/surefire-reports/TEST-*.xml'
