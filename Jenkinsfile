@@ -22,11 +22,33 @@ pipeline {
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
+        def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+        sh "echo ${version}"
       }
         junit '**/target/surefire-reports/TEST-*.xml'
 
       }
     }
+    // stage('IQServer') {
+    //   // when { 
+    //   //   branch 'main'
+    //   //   beforeAgent true
+    //   // }
+    //   agent {
+    //     label 'iq-server-cli-pod'
+    //   }
+    // steps {
+    //  container('iq-server-cli') {
+    //     //sleep time: 10, unit: 'MINUTES'
+    //     checkout scm
+    //     sh '''
+    //     mvn clean install -s /usr/share/maven/ref/settings.xml
+    //     '''
+    //   }
+    //     junit '**/target/surefire-reports/TEST-*.xml'
+
+    //   }
+    // }
     stage('Push Snapshot to Nexus') {
       when { 
        not {
