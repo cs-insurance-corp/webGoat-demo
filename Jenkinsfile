@@ -13,6 +13,7 @@ pipeline {
       // }
       agent {
         kubernetes{
+          label 'maven'
           yamlFile 'kubernetes-agents/mvn.yaml'
         }
       }
@@ -37,6 +38,7 @@ pipeline {
       // }
       agent {
         kubernetes{
+          label 'iqserver-cli'
           yamlFile 'kubernetes-agents/iqserver-cli.yaml'
         }
       }
@@ -60,6 +62,7 @@ pipeline {
       }
       agent {
         kubernetes{
+          label 'maven'
           yamlFile 'kubernetes-agents/mvn.yaml'
         }
       }
@@ -80,6 +83,7 @@ pipeline {
       }
       agent {
         kubernetes{
+          label 'maven'
           yamlFile 'kubernetes-agents/mvn.yaml'
         }
       }
@@ -100,6 +104,7 @@ pipeline {
       }
       agent {
         kubernetes{
+          label 'hub-cli'
           yamlFile 'kubernetes-agents/hub-cli.yaml'
         }
       }
