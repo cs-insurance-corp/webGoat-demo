@@ -1,0 +1,19 @@
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  labels:
+    label: "iq-server-cli"
+spec:
+  containers:
+  - args:
+    - "cat"
+    command:
+    - "/bin/sh"
+    - "-c"
+    image: "sonatype/nexus-iq-cli:1.102.0-02"
+    imagePullPolicy: "IfNotPresent"
+    name: "iq-cli"
+    resources:
+      limits: {}
+      requests: {}
+    tty: true

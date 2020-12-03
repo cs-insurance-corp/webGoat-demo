@@ -12,7 +12,10 @@ pipeline {
       //   beforeAgent true
       // }
       agent {
-        label 'mvn-pod'
+        kubernetes{
+          label 'maven'
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -34,12 +37,15 @@ pipeline {
       //   beforeAgent true
       // }
       agent {
-        label 'iq-cli'
+        kubernetes{
+          label 'iqserver-cli'
+          yamlFile 'kubernetes-agents/iqserver-cli.yaml'
+        }
       }
     steps {
      container('iq-cli') {
        unstash 'webgoat-server-jars'
-       sh 'ls -l -R'
+      //  sh 'ls -l -R'
        withCredentials([usernameColonPassword(credentialsId: 'credentials-iq-server', variable: 'iqserver')]) {
        sh '/sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a $iqserver ./webgoat-server/target/*.jar'
        }
@@ -55,7 +61,10 @@ pipeline {
         beforeAgent true
       }
       agent {
-        label 'mvn-pod'
+        kubernetes{
+          label 'maven'
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -73,7 +82,10 @@ pipeline {
         beforeAgent true
       }
       agent {
-        label 'mvn-pod'
+        kubernetes{
+          label 'maven'
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -91,7 +103,10 @@ pipeline {
         beforeAgent true
       }
       agent {
-        label 'hub-cli'
+        kubernetes{
+          label 'hub-cli'
+          yamlFile 'kubernetes-agents/hub-cli.yaml'
+        }
       }
     steps {
      container('hub') {
