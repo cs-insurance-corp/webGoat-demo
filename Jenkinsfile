@@ -22,8 +22,11 @@ pipeline {
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
+        script{
         def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
+        }
         sh "echo ${version}"
+
       }
         junit '**/target/surefire-reports/TEST-*.xml'
 
