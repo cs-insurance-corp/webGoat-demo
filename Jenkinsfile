@@ -5,7 +5,6 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
     skipDefaultCheckout true
   }
-
   stages {
     stage('Maven Build WebGoat') {
       // when { 
@@ -22,8 +21,29 @@ pipeline {
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
+        stash includes: 'webgoat-server/target/*SNAPSHOT.jar', name: 'webgoat-server-jars'
+
       }
         junit '**/target/surefire-reports/TEST-*.xml'
+
+      }
+    }
+    stage('IQServer') {
+      // when { 
+      //   branch 'main'
+      //   beforeAgent true
+      // }
+      agent {
+        label 'iq-cli'
+      }
+    steps {
+     container('iq-cli') {
+       unstash 'webgoat-server-jars'
+       sh 'ls -l -R'
+       withCredentials([usernameColonPassword(credentialsId: 'credentials-iq-server', variable: 'iqserver')]) {
+       sh '/sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a $iqserver ./webgoat-server/target/*.jar'
+       }
+      }
 
       }
     }
