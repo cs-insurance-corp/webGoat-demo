@@ -22,7 +22,7 @@ pipeline {
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
-        stash includes: 'webgoat-server/target/*.jar', name: 'webgoat-server-jars'
+        stash includes: 'webgoat-server/target/*SNAPSHOT.jar', name: 'webgoat-server-jars'
 
       }
         junit '**/target/surefire-reports/TEST-*.xml'
@@ -41,7 +41,11 @@ pipeline {
      container('iq-cli') {
        unstash 'webgoat-server-jars'
        sh 'ls -l -R'
-       sh '/sonatype/evaluate -h'
+       withCredentials([usernameColonPassword(credentialsId: 'credentials-iq-server', variable: 'credentials-iq-server')]) {
+       sh '''
+       /sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a ${credentials-iq-server}
+       '''
+       }
       }
 
       }
