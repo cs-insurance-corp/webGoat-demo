@@ -5,10 +5,15 @@ metadata:
     label: "iq-server-cli"
 spec:
   containers:
-  - image: "sonatype/nexus-iq-server:1.103.0"
-    name: "iq-cli"
-    args:
+  - args:
     - "cat"
     command:
     - "/bin/sh"
     - "-c"
+    image: "sonatype/nexus-iq-cli:1.102.0-02"
+    imagePullPolicy: "IfNotPresent"
+    name: "iq-cli"
+    resources:
+      limits: {}
+      requests: {}
+    tty: true
