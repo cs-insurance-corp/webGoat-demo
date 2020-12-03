@@ -12,7 +12,9 @@ pipeline {
       //   beforeAgent true
       // }
       agent {
-        yamlFile 'kubernetes-agents/mvn.yaml'
+        kubernetes{
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -34,7 +36,9 @@ pipeline {
       //   beforeAgent true
       // }
       agent {
-        yamlFile 'kubernetes-agents/iqserver-cli.yaml'
+        kubernetes{
+          yamlFile 'kubernetes-agents/iqserver-cli.yaml'
+        }
       }
     steps {
      container('iq-cli') {
@@ -55,7 +59,9 @@ pipeline {
         beforeAgent true
       }
       agent {
-        yamlFile 'kubernetes-agents/mvn.yaml'
+        kubernetes{
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -73,7 +79,9 @@ pipeline {
         beforeAgent true
       }
       agent {
-        yamlFile 'kubernetes-agents/mvn.yaml'
+        kubernetes{
+          yamlFile 'kubernetes-agents/mvn.yaml'
+        }
       }
     steps {
      container('maven') {
@@ -91,7 +99,9 @@ pipeline {
         beforeAgent true
       }
       agent {
-        yamlFile 'kubernetes-agents/hub-cli.yaml'
+        kubernetes{
+          yamlFile 'kubernetes-agents/hub-cli.yaml'
+        }
       }
     steps {
      container('hub') {
