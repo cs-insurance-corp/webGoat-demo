@@ -22,36 +22,30 @@ pipeline {
         sh '''
         mvn clean install -s /usr/share/maven/ref/settings.xml
         '''
-        script{
-        def version = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-        }
-        sh "echo ${version}"
+        stash includes: 'webgoat-server/target/*.jar', name: 'webgoat-server-jars'
 
       }
         junit '**/target/surefire-reports/TEST-*.xml'
 
       }
     }
-    // stage('IQServer') {
-    //   // when { 
-    //   //   branch 'main'
-    //   //   beforeAgent true
-    //   // }
-    //   agent {
-    //     label 'iq-server-cli-pod'
-    //   }
-    // steps {
-    //  container('iq-server-cli') {
-    //     //sleep time: 10, unit: 'MINUTES'
-    //     checkout scm
-    //     sh '''
-    //     mvn clean install -s /usr/share/maven/ref/settings.xml
-    //     '''
-    //   }
-    //     junit '**/target/surefire-reports/TEST-*.xml'
+    stage('IQServer') {
+      // when { 
+      //   branch 'main'
+      //   beforeAgent true
+      // }
+      agent {
+        label 'iq-cli'
+      }
+    steps {
+     container('iq-cli') {
+       unstash 'webgoat-server-jars'
+       sh 'ls -l -R'
+       sh '/sonatype/evaluate -h'
+      }
 
-    //   }
-    // }
+      }
+    }
     stage('Push Snapshot to Nexus') {
       when { 
        not {
