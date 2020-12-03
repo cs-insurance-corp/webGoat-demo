@@ -5,7 +5,7 @@ metadata:
     label: "iq-server-cli"
 spec:
   containers:
-  - image: "nexus-iq-server:1.103.0"
+  - image: "sonatype/nexus-iq-server:1.103.0"
     name: "iq-cli"
     command:
     - cat
