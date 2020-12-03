@@ -34,10 +34,12 @@ pipeline {
       }
     }
     stage('IQServer') {
-      // when { 
-      //   branch 'main'
-      //   beforeAgent true
-      // }
+      when { 
+       not {
+           branch 'release-*'
+       }
+        beforeAgent true
+      }
       agent {
         kubernetes{
           label 'iqserver-cli'
