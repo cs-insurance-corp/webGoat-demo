@@ -2,7 +2,7 @@
 
 ## Version 8.2.0
 
-- Feature 1
+- Feature #1 - adding Jenkinsfile support
 
 
 ## Version 8.1.0
