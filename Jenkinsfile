@@ -45,7 +45,7 @@ pipeline {
     steps {
      container('iq-cli') {
        unstash 'webgoat-server-jars'
-       sh 'ls -l -R'
+      //  sh 'ls -l -R'
        withCredentials([usernameColonPassword(credentialsId: 'credentials-iq-server', variable: 'iqserver')]) {
        sh '/sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a $iqserver ./webgoat-server/target/*.jar'
        }
