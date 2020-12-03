@@ -1,0 +1,12 @@
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+  labels:
+    label: "iq-server-cli"
+spec:
+  containers:
+  - image: "tianon/github-hub:latest"
+    name: "hub"
+    command:
+    - cat
+    tty: true
