@@ -7,10 +7,12 @@ pipeline {
   }
   stages {
     stage('Maven Build WebGoat') {
-      // when { 
-      //   branch 'main'
-      //   beforeAgent true
-      // }
+      when { 
+       not {
+           branch 'release-*'
+       }
+        beforeAgent true
+      }
       agent {
         kubernetes{
           label 'maven'
@@ -21,10 +23,7 @@ pipeline {
      container('maven') {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
-        sh '''
-        mvn clean install -s /usr/share/maven/ref/settings.xml
-        '''
-        stash includes: 'webgoat-server/target/*SNAPSHOT.jar', name: 'webgoat-server-jars'
+        stash includes: 'webgoat-server/target/*.jar', name: 'webgoat-server-jars'
 
       }
         junit '**/target/surefire-reports/TEST-*.xml'
@@ -92,7 +91,7 @@ pipeline {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
         sh '''
-        mvn clean deploy -Dmaven.test.skip=true -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
+        mvn clean install deploy -Dmaven.test.skip=true -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
         '''
       }
       }
