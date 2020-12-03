@@ -5,7 +5,6 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
     skipDefaultCheckout true
   }
-
   stages {
     stage('Maven Build WebGoat') {
       // when { 
@@ -42,7 +41,7 @@ pipeline {
        unstash 'webgoat-server-jars'
        sh 'ls -l -R'
        withCredentials([usernameColonPassword(credentialsId: 'credentials-iq-server', variable: 'credentials-iq-server')]) {
-       sh ("/sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a $credentials-iq-server /*.jar")
+       sh '/sonatype/evaluate -s http://35.237.47.88:8070 -i webGoat-demo -a $credentials-iq-server /*.jar'
        }
       }
 
