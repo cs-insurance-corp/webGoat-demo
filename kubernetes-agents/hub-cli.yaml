@@ -5,8 +5,14 @@ metadata:
     label: "hub-cli"
 spec:
   containers:
-  - image: "tianon/github-hub:2.6"
+  - args:
+    - "cat"
+    command:
+    - "/bin/sh"
+    - "-c"
+    image: "tianon/github-hub:2.6"
     name: "hub"
+    tty: true
     env:
     - name: "GITHUB_TOKEN"
       valueFrom:
