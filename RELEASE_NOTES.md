@@ -1,5 +1,11 @@
 # WebGoat release notes 
 
+## Version 8.2.2
+
+## Version 8.2.1
+
+- Added release pipeline
+
 ## Version 8.2.0
 
 - Feature #1 - adding Jenkinsfile support
