@@ -80,27 +80,27 @@ pipeline {
       }
       }
     }
-   stage('Pushing Release to Nexus') {
-      when { 
-        branch 'release-*'
-        beforeAgent true
-      }
-      agent {
-        kubernetes{
-          label 'maven'
-          yamlFile 'kubernetes-agents/mvn.yaml'
-        }
-      }
-    steps {
-     container('maven') {
-        //sleep time: 10, unit: 'MINUTES'
-        checkout scm
-        sh '''
-        mvn deploy -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
-        '''
-      }
-      }
-    }   
+  //  stage('Pushing Release to Nexus') {
+  //     when { 
+  //       branch 'release-*'
+  //       beforeAgent true
+  //     }
+  //     agent {
+  //       kubernetes{
+  //         label 'maven'
+  //         yamlFile 'kubernetes-agents/mvn.yaml'
+  //       }
+  //     }
+  //   steps {
+  //    container('maven') {
+  //       //sleep time: 10, unit: 'MINUTES'
+  //       checkout scm
+  //       sh '''
+  //       mvn deploy -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
+  //       '''
+  //     }
+  //     }
+  //   }   
     stage('Release WebGoat') {
       when { 
         branch 'release-*'
