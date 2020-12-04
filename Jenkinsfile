@@ -96,7 +96,7 @@ pipeline {
         //sleep time: 10, unit: 'MINUTES'
         checkout scm
         sh '''
-        mvn clean deploy -Dmaven.test.skip=true -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
+        mvn deploy -Drevision=${BRANCH_NAME#*-} -s /usr/share/maven/ref/settings.xml
         '''
       }
       }
