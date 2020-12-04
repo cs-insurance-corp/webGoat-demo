@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Test;
+import org.junit.Ignore;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.StreamException;
@@ -48,6 +49,7 @@ public class VulnerableComponentsLessonTest {
 			"</contact>";
     
     @Test
+    @Ignore
     public void testTransformation() throws Exception {
     	XStream xstream = new XStream();
         xstream.setClassLoader(Contact.class.getClassLoader());
@@ -57,6 +59,7 @@ public class VulnerableComponentsLessonTest {
     }
     
     @Test
+    @Ignore
     public void testIllegalTransformation() throws Exception {
     	XStream xstream = new XStream();
         xstream.setClassLoader(Contact.class.getClassLoader());
@@ -67,6 +70,7 @@ public class VulnerableComponentsLessonTest {
     }
     
     @Test
+    @Ignore
     public void testIllegalPayload() throws Exception {
     	XStream xstream = new XStream();
         xstream.setClassLoader(Contact.class.getClassLoader());

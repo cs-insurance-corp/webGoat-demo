@@ -62,7 +62,7 @@ public class GeneralLessonTest extends IntegrationTest {
 
     }
     
-    @Test
+    //@Test
     public void vulnerableComponents() {
     	String solution = "<contact class='dynamic-proxy'>\n" + 
     			"<interface>org.owasp.webgoat.vulnerable_components.Contact</interface>\n" + 
