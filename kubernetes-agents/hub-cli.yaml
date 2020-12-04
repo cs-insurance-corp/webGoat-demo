@@ -5,17 +5,9 @@ metadata:
     label: "hub-cli"
 spec:
   containers:
-  - env:
-    - name: "GITHUB_TOKEN"
-      valueFrom:
-        secretKeyRef:
-          key: "GITHUB_TOKEN"
-          name: "gh-token"
-          optional: false
-    image: "tianon/github-hub:latest"
+  - image: "tianon/github-hub:2.6"
     name: "hub"
-    resources:
-  - env:
+    env:
     - name: "GITHUB_TOKEN"
       valueFrom:
         secretKeyRef:
