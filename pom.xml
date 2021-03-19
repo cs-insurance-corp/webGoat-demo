@@ -300,7 +300,7 @@
         </profile>
     </profiles>
 
-    <repositories>
+<!--     <repositories>
         <repository>
             <id>central</id>
             <url>http://34.74.233.234:8081/repository/maven-central</url>
@@ -317,6 +317,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories> -->
 
 </project>
