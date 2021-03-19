@@ -8,7 +8,6 @@ steps:
 - task: Maven@3
   inputs:
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.11'
     jdkArchitectureOption: 'x64'
     mavenPomFile: 'pom.xml'
